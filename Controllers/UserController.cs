@@ -8,34 +8,33 @@ namespace SurfSpotAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SurfSpotsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<SurfSpot[]> Get()
+        public ActionResult<User[]> Get()
         {
             try
             {
-                SurfSpotsDataService ds = new SurfSpotsDataService();
-                List<SurfSpot> surfSpots = ds.getSurfSpots();
-
-                return Ok(surfSpots.ToArray());
+                UsersDataService ds = new UsersDataService();
+                List<User> users = ds.GetUsers();
+                return Ok(users.ToArray());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
         [HttpPost]
-        public ActionResult<SurfSpot> Post([FromBody] SurfSpot spot)
+        public ActionResult<User> Post([FromBody] User user)
         {
             try
             {
-                SurfSpotsDataService ds = new SurfSpotsDataService();
-                SurfSpot s = ds.AddSurfSpot(spot);
+                UsersDataService ds = new UsersDataService();
+                User u = ds.AddUser(user);
 
-                if (s != null)
-                    return Ok(s);
+                if (u != null)
+                    return Ok(u);
                 return BadRequest();
             }
             catch (Exception ex)
@@ -44,5 +43,4 @@ namespace SurfSpotAPI.Controllers
             }
         }
     }
-
 }
